@@ -1,0 +1,420 @@
+<!DOCTYPE html><html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti 🤍</title>
+<style>
+body{
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#fde2e4,#e0c3fc);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.card{
+  background:rgba(255,255,255,0.95);
+  padding:25px;
+  border-radius:20px;
+  max-width:450px;
+  width:90%;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+.hidden{display:none;}
+button{
+  border:none;
+  padding:12px 18px;
+  border-radius:14px;
+  font-size:15px;
+  cursor:pointer;
+  margin:8px;
+}
+.colors{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.color{
+  padding:20px;
+  border-radius:15px;
+  cursor:pointer;
+  font-weight:600;
+}
+.rosa{background:#f7b2cc}
+.rojo{background:#f28b82}
+.azul{background:#aecbfa}
+.amarillo{background:#fff1a8}
+.morado{background:#d7aefb}
+.naranja{background:#fbbc8a}
+</style>
+</head>
+<body><!-- MÚSICA --><iframe width="0" height="0" src="https://www.youtube.com/embed/6J2hF0p8rQw?autoplay=1&loop=1&playlist=6J2hF0p8rQw" frameborder="0" allow="autoplay"></iframe><!-- ÍNDICE --><div class="card" id="index">
+<p>
+Este regalo lo hice especialmente para ti, pensando en cada emoción y en cada momento que puedas sentir.<br><br>
+Lo hice con mucho amor, para que cuando lo necesites recuerdes lo amado que eres, lo importante que eres para mí y que nunca estás solo.<br><br>
+Quiero que estas notitas te hagan sentir feliz, seguro, confiado y protegido, incluso en los días difíciles.<br><br>
+Espero de corazón que te guste y que cada papelito te abrace un poquito el alma.<br><br>
+<b>Te amo 🤍</b>
+</p>
+<button onclick="showPage('menu')">Entrar</button>
+</div><!-- MENÚ --><div class="card hidden" id="menu">
+<h2>LÉELO CUANDO TE SIENTAS…</h2>
+<div class="colors">
+<div class="color rosa" onclick="openEmotion('rosa')">💗 Feliz</div>
+<div class="color azul" onclick="openEmotion('azul')">💙 Triste</div>
+<div class="color rojo" onclick="openEmotion('rojo')">❤️ Enojado</div>
+<div class="color amarillo" onclick="openEmotion('amarillo')">💛 Ansioso</div>
+<div class="color morado" onclick="openEmotion('morado')">💜 Me extrañas</div>
+<div class="color naranja" onclick="openEmotion('naranja')">🧡 Aburrido</div>
+</div>
+<br>
+<button onclick="showPage('final')">Mensaje final</button>
+</div><!-- NOTA --><div class="card hidden" id="note">
+<h3 id="emotionTitle"></h3>
+<p id="noteText"></p>
+<button onclick="nextNote()">Otro papelito</button>
+<br>
+<button onclick="showPage('menu')">Volver</button>
+</div><!-- FINAL --><div class="card hidden" id="final">
+<p>
+Si llegaste hasta aquí, solo quiero que sepas que cada una de estas notitas fue escrita pensando en ti y en todo lo que significas para mí.<br><br>
+Este regalo no es solo papel, es una parte de mi corazón, de mis sentimientos y de todo el amor que siento por ti.<br><br>
+Quiero que recuerdes siempre que eres amado, que eres importante, que eres suficiente tal como eres y que no estás solo.<br><br>
+Gracias por ser quien eres, por quedarte y por formar parte de mi vida.<br><br>
+<b>Te amo más de lo que a veces sé explicar, y siempre voy a estar para ti 🤍</b>
+</p>
+<button onclick="showPage('menu')">Volver</button>
+</div><script>
+const data = {/* NOTAS COMPLETAS */
+rosa:["Quiero que sepas que una de las razones más grandes de mi felicidad es tenerte en mi vida y poder compartir mis días contigo.",
+"Estar contigo me hace sentir tranquila, en paz y muy agradecida por todo lo que somos juntos.",
+"Me haces feliz de una forma sincera, sin esfuerzo, solo siendo tú.",
+"A tu lado aprendí que el amor también se siente como un lugar seguro.",
+"Cuando pienso en ti, mi corazón se llena de calma y sonrisas.",
+"Gracias por existir y por ser parte de mi vida de una manera tan bonita.",
+"Me encanta la persona que soy cuando estoy contigo.",
+"Contigo entendí que amar no siempre es intensidad, a veces es paz.",
+"Me haces sentir querida incluso en los momentos más simples.",
+"Mi felicidad también es verte bien, tranquilo y sonriendo.",
+"A tu lado aprendí a disfrutar las pequeñas cosas.",
+"Me siento muy afortunada de poder caminar contigo.",
+"Gracias por cuidarme, respetarme y quererme como lo haces.",
+"Mi corazón te eligió porque se siente bien contigo.",
+"Me encanta compartir mis días, mis pensamientos y mis emociones contigo.",
+"Amarte se siente natural y bonito.",
+"Contigo aprendí que el amor no duele, acompaña.",
+"Me haces sentir segura de amar sin miedo.",
+"Mi felicidad se construye contigo, poco a poco.",
+"Gracias por ser tú, sin máscaras.",
+"Me gusta soñar contigo y pensar en todo lo bonito que somos.",
+"Mi vida es mejor desde que estás en ella.",
+"Me haces sentir valorada y escuchada.",
+"Estar contigo se siente correcto.",
+"Mi amor por ti crece de una forma sana y sincera.",
+"Gracias por elegirme cada día.",
+"Contigo todo se siente más ligero.",
+"Me encanta compartir mis alegrías contigo.",
+"Mi corazón confía en el tuyo.",
+"Amarte es una de mis decisiones favoritas.",
+"Me haces sentir acompañada incluso en silencio.",
+"Gracias por darme calma cuando la necesito.",
+"Mi felicidad también es cuidarte y apoyarte.",
+"Contigo aprendí a amar bonito y sin miedo.",
+"Me siento muy feliz de tenerte en mi vida.",
+"Mi corazón sonríe cada vez que pienso en ti.",
+"Gracias por ser parte de mi historia.",
+"Me encanta construir algo real contigo.",
+"Eres una persona muy importante para mí.",
+"Mi amor por ti es sincero y profundo.",
+"Me haces sentir especial solo con estar.",
+"Gracias por compartir tu vida conmigo.",
+"Mi mundo tiene más luz desde que estás en él.",
+"Amarte me hace bien al corazón.",
+"Contigo me siento en casa.",
+"Gracias por tanto amor y paciencia.",
+"Me siento completa cuando pienso en nosotros.",
+"Mi corazón te elige todos los días, sin duda.",
+"Me haces muy feliz y quería que lo supieras.",
+"Te amo con todo mi corazón y con toda mi calma."
+],
+azul:["Si hoy te sientes triste, quiero que recuerdes que este momento no define quién eres ni todo lo bueno que hay en tu corazón.",
+"Está bien no estar bien hoy, no tienes que fingir fuerza todo el tiempo.",
+"No estás solo en lo que sientes, me tienes a mí, incluso en tus días más grises.",
+"Esta tristeza es solo una etapa difícil, no es para siempre.",
+"Tu valor no cambia por sentirte así, sigues siendo increíble.",
+"Yo creo en ti incluso cuando tú no logras verlo.",
+"Todo lo que hoy pesa, con el tiempo va a doler menos.",
+"Puedes tomarte tu tiempo, no hay prisa para sanar.",
+"Tu corazón es fuerte, aunque ahora esté cansado.",
+"Estoy aquí para sostenerte, sin juicios y sin condiciones.",
+"No tienes que cargar con todo solo, puedes apoyarte en mí.",
+"Lo que hoy duele no borra todo lo que has logrado.",
+"Esta tristeza no te hace débil, te hace humano.",
+"Confía en que poco a poco vas a volver a sentir calma.",
+"Yo no me voy en tus días tristes, me quedo contigo.",
+"Has superado momentos difíciles antes y este también va a pasar.",
+"Está bien descansar cuando el alma se siente cansada.",
+"No estás roto, solo necesitas un poco de cariño y tiempo.",
+"Tu esfuerzo vale la pena, incluso cuando no lo ves.",
+"Mañana puede sentirse un poquito más ligero que hoy.",
+"Tu tristeza es válida y merece ser escuchada.",
+"Yo confío en tu proceso, incluso cuando es lento.",
+"No pierdas la fe en ti, aunque hoy cueste.",
+"Estoy orgullosa de ti por seguir adelante a pesar de todo.",
+"Te abrazo con todo mi amor, incluso si no lo notas.",
+"Esto no define tu historia ni tu futuro.",
+"Eres importante, querido y muy amado.",
+"No estás fallando por sentirte así.",
+"Todo se acomoda con tiempo y paciencia.",
+"Respira despacio, tu corazón sabe sanar.",
+"Estoy contigo en este momento, no te suelto.",
+"Tu vida vale mucho, incluso en los días difíciles.",
+"No estás solo nunca, aunque a veces lo parezca.",
+"Yo te acompaño paso a paso.",
+"Te amo incluso cuando no sonríes.",
+"Esta tristeza no va a durar para siempre.",
+"Confía en que vendrán días más suaves.",
+"Tu corazón tiene mucha luz, aunque hoy no la veas.",
+"Estoy aquí para ti, siempre.",
+"No te juzgues por sentir así.",
+"Te mereces paz y calma.",
+"Yo te elijo incluso en estos días.",
+"Todo va a estar bien, poco a poco.",
+"Estoy orgullosa de la persona que eres.",
+"Tu esfuerzo no es en vano.",
+"No tienes que apresurarte a estar bien.",
+"Te acompaño en silencio si lo necesitas.",
+"Siempre voy a creer en ti.",
+"Esto también pasará, aunque ahora duela.",
+"Te amo y no estás solo."
+],
+rojo:["Si hoy te sientes enojado, quiero que sepas que sentirlo no te hace una mala persona, solo alguien que está atravesando algo difícil.",
+"Este enojo no define quién eres ni todo lo bueno que hay en tu corazón.",
+"Está bien sentir frustración cuando las cosas no salen como esperabas.",
+"No tienes que resolver todo ahora mismo, puedes darte un momento para respirar.",
+"Yo estoy de tu lado incluso cuando el día se pone pesado.",
+"Tu valor no cambia por un mal momento o una reacción fuerte.",
+"Respira profundo, esto que sientes va a bajar poco a poco.",
+"No estás solo cargando con este enojo, aquí estoy contigo.",
+"A veces el corazón solo necesita ser escuchado para calmarse.",
+"Puedes tomarte un descanso emocional sin sentir culpa.",
+"Este momento no borra todo lo bueno que eres ni todo lo que has logrado.",
+"Está bien pausar antes de hablar o actuar.",
+"Confía en que esto también va a pasar.",
+"Incluso molesto, sigues siendo alguien muy importante para mí.",
+"No te juzgues tan duro por sentirte así.",
+"El enojo es una emoción, no tu identidad.",
+"Estoy aquí para acompañarte mientras todo se acomoda.",
+"Nada se rompió para siempre, muchas cosas se pueden arreglar.",
+"Tu corazón sigue siendo noble, aunque ahora esté alterado.",
+"Baja los hombros, suelta un poco la tensión.",
+"No tienes que cargar con todo solo.",
+"Mañana esto se va a sentir diferente.",
+"Permítete sentir sin culparte.",
+"Yo confío en ti incluso en estos momentos.",
+"Este enojo no va a durar para siempre.",
+"Puedes respirar y empezar de nuevo.",
+"Estoy orgullosa de ti por seguir adelante.",
+"Tu esfuerzo vale la pena, incluso en días difíciles.",
+"No estás fallando, solo estás sintiendo.",
+"Todo se acomoda con tiempo y calma.",
+"Estoy contigo, no me voy.",
+"Tu valor sigue intacto.",
+"Respira otra vez, más despacio.",
+"Esto no define tu historia.",
+"Confía en que todo va a mejorar.",
+"Estoy aquí para ti sin condiciones.",
+"El enojo se va, tú te quedas.",
+"Te amo incluso cuando estás molesto.",
+"Nada cambia lo que siento por ti.",
+"Este momento no es permanente.",
+"Puedes con esto, aunque ahora cueste.",
+"Yo te acompaño en este proceso.",
+"No te suelto en tus días difíciles.",
+"Todo va a estar bien, paso a paso.",
+"Tu corazón merece calma.",
+"Estoy orgullosa de la persona que eres.",
+"Respira, no hay prisa.",
+"Confía en ti.",
+"Aquí estoy, siempre contigo.",
+"Te amo, incluso en este momento."
+],
+amarillo:["Si hoy te sientes ansioso, quiero que recuerdes que no todo lo que tu mente imagina es real, y que ahora mismo estás a salvo.",
+"No tienes que resolver todo hoy, puedes ir paso a paso sin presionarte.",
+"Respira despacio, este momento va a pasar aunque ahora se sienta intenso.",
+"Tu ansiedad no te define ni te hace débil, solo significa que tu corazón necesita calma.",
+"Estoy aquí para recordarte que no estás solo en esto.",
+"Está bien sentirte así, no te juzgues por tener un día difícil.",
+"Todo puede esperar un poco, no hay prisa.",
+"Confía en ti, ya has superado momentos así antes.",
+"Tu cuerpo solo está tratando de protegerte, no está fallando.",
+"Poco a poco tu respiración y tu mente se van a tranquilizar.",
+"No pasa nada si hoy necesitas parar y descansar.",
+"Estás haciendo lo mejor que puedes, y eso es suficiente.",
+"Nada malo está pasando ahora mismo, estás a salvo.",
+"Tu ansiedad no borra todo lo fuerte y valioso que eres.",
+"Respira otra vez, más lento.",
+"No tienes que tener todas las respuestas hoy.",
+"Confía en que este sentimiento va a bajar.",
+"Yo creo en ti incluso cuando la ansiedad te hace dudar.",
+"Todo se va a acomodar poco a poco.",
+"No te exijas calma inmediata, llega con tiempo.",
+"Tu mente va a descansar, aunque ahora no lo sientas.",
+"Está bien pedir apoyo cuando lo necesitas.",
+"No estás fallando por sentir ansiedad.",
+"Este momento no define tu camino.",
+"Tu corazón sabe volver a la calma.",
+"Estoy contigo respirando despacio.",
+"No hay peligro ahora, puedes soltar un poco la tensión.",
+"Confía en tu proceso, incluso cuando es lento.",
+"Todo va a estar bien, paso a paso.",
+"Tu ansiedad no manda sobre ti.",
+"No estás solo, me tienes a mí.",
+"Respira, estás a salvo.",
+"Esto no va a durar para siempre.",
+"Eres más fuerte de lo que ahora sientes.",
+"No te juzgues tan duro.",
+"Tu cuerpo y tu mente están aprendiendo a calmarse.",
+"Yo confío en ti y en tu proceso.",
+"Puedes con esto, aunque hoy cueste.",
+"Todo se acomoda con paciencia.",
+"Estoy orgullosa de ti por seguir adelante.",
+"No tienes que apresurarte a sentirte mejor.",
+"Respira profundo otra vez.",
+"Tu calma está regresando poco a poco.",
+"Estoy aquí para ti.",
+"No estás solo nunca.",
+"Confía, este momento va a pasar.",
+"Te mereces tranquilidad.",
+"Tu esfuerzo vale mucho.",
+"Yo te acompaño en este momento.",
+"Te amo y estás a salvo."
+],
+morado:["Si hoy me extrañas, quiero que sepas que también estás muy presente en mi corazón y en mis pensamientos.",
+"Pensarte se siente bonito, porque me recuerda todo lo que significas para mí.",
+"Mi cariño por ti no desaparece, se queda conmigo todos los días.",
+"Siempre hay un espacio en mi corazón donde estás tú.",
+"Aunque no lo diga todo el tiempo, te pienso más de lo que imaginas.",
+"Extrañarte no duele cuando recuerdo cuánto te amo.",
+"Estás presente en mis días de una forma muy especial.",
+"Mi corazón siempre sabe volver a ti.",
+"Pensarte me da calma y me hace sonreír.",
+"Mi amor por ti es constante, incluso en la distancia del día a día.",
+"Te llevo conmigo en lo que pienso y siento.",
+"Extrañarte también me recuerda lo real que es lo nuestro.",
+"Siempre estás en mis pensamientos más suaves.",
+"Mi corazón te guarda con mucho cariño.",
+"Pensarte me hace sentir cerca de ti.",
+"Aunque no me veas, estoy contigo de una forma muy real.",
+"Mi amor por ti no se distrae ni se pierde.",
+"Estás muy presente en mi vida.",
+"Extrañarte me confirma cuánto te quiero.",
+"Mi corazón te elige todos los días.",
+"Te pienso con ternura y cariño.",
+"Siempre hay un pedacito de mí contigo.",
+"Mi amor por ti es firme y sincero.",
+"Pensarte se siente como un abrazo.",
+"Estás conmigo incluso en lo pequeño.",
+"Mi corazón te reconoce como su lugar seguro.",
+"Extrañarte también es una forma de amarte.",
+"Te llevo conmigo de una forma muy natural.",
+"Pensarte me hace sentir acompañada.",
+"Mi cariño por ti no se va.",
+"Siempre estás en mi mente y en mi corazón.",
+"Extrañarte me recuerda todo lo bonito que compartimos.",
+"Mi amor por ti es real y constante.",
+"Pensarte me llena el corazón.",
+"Estás muy dentro de mí.",
+"Mi corazón siempre te nombra.",
+"Extrañarte no me asusta, me conecta contigo.",
+"Te llevo cerquita, aunque no lo notes.",
+"Mi amor por ti no tiene dudas.",
+"Pensarte me hace bien.",
+"Estás presente incluso cuando no hablamos.",
+"Mi cariño por ti es profundo.",
+"Extrañarte también es sentirte conmigo.",
+"Mi corazón no se equivoca contigo.",
+"Siempre estás en mí.",
+"Pensarte me calma.",
+"Mi amor por ti no descansa.",
+"Te llevo conmigo hoy.",
+"Mi corazón te elige, siempre.",
+"Te amo y te pienso con todo mi cariño."
+],
+naranja:["Si hoy estás aburrido, quiero que recuerdes que alguien piensa en ti con mucho cariño y eso ya hace el día un poquito mejor.",
+"Aunque el día se sienta lento, tú sigues siendo alguien muy especial para mí.",
+"A veces no pasa nada interesante, y está bien, incluso esos días tú sigues siendo increíble.",
+"Pensarte ya me sacó una sonrisa, ojalá esta notita haga lo mismo contigo.",
+"El aburrimiento llega, pero también se va, y tú te quedas en mi corazón.",
+"Aunque hoy no haya mucho que hacer, quiero que sepas que eres muy importante para mí.",
+"Si este momento se siente largo, recuerda que alguien te quiere mucho.",
+"Incluso en días simples, tú sigues siendo una de mis personas favoritas.",
+"Pensar en ti hace que cualquier momento se sienta más bonito.",
+"Puede que hoy el tiempo pase lento, pero mi cariño por ti siempre está presente.",
+"El aburrimiento no te quita lo lindo, lo querido ni lo especial que eres.",
+"Si sonríes un poquito al leer esto, ya valió la pena.",
+"A veces los días tranquilos también son necesarios, y tú mereces calma.",
+"Aunque hoy no haya emoción, hay amor, y eso importa mucho.",
+"Pensarte es una de mis formas favoritas de pasar el tiempo.",
+"Incluso aburrido, sigues siendo alguien que amo mucho.",
+"Quiero que recuerdes que eres querido incluso en los momentos más simples.",
+"El día puede ser lento, pero tú sigues siendo una persona increíble.",
+"Si hoy no sabes qué hacer, al menos sabes que eres amado.",
+"Pensarte hace que cualquier momento se sienta menos vacío.",
+"A veces el aburrimiento solo es una pausa para respirar.",
+"Quería que supieras que estoy pensando en ti ahora mismo.",
+"Aunque el día no tenga planes, tú sigues siendo parte importante de mi vida.",
+"El aburrimiento no cambia lo mucho que significas para mí.",
+"Incluso en días así, mi cariño por ti sigue intacto.",
+"Pensarte me hace sentir cerca de ti.",
+"Si este papelito llegó a tus manos, es porque alguien te ama mucho.",
+"El tiempo pasa más lento cuando uno se aburre, pero el amor siempre acompaña.",
+"Quiero que recuerdes que eres importante incluso cuando no pasa nada especial.",
+"Aunque hoy el día sea simple, tú no lo eres.",
+"Pensar en ti hace que el aburrimiento se sienta más ligero.",
+"A veces solo hace falta una notita para sentirse acompañado.",
+"Aunque no haya emoción hoy, hay cariño de sobra.",
+"Quería sacarte una sonrisa, aunque sea pequeña.",
+"El aburrimiento también pasa, el amor se queda.",
+"Pensarte me hace sentir bien, y quería compartir eso contigo.",
+"Incluso en días lentos, tú sigues siendo alguien muy querido.",
+"Esta notita es solo para recordarte que importas mucho.",
+"El día puede ser largo, pero no estás solo.",
+"Pensarte siempre es un buen plan para mí.",
+"Aunque hoy no pase nada especial, tú sigues siendo especial para mí.",
+"El aburrimiento no tiene poder sobre lo mucho que te quiero.",
+"Quería acompañarte un ratito con estas palabras.",
+"Incluso en días simples, mi cariño por ti es grande.",
+"Pensarte me hace sonreír sin darme cuenta.",
+"El día sigue, y yo sigo aquí pensándote.",
+"Esta notita es un pequeño abrazo para ti.",
+"Aunque el tiempo pase lento, mi amor por ti no cambia.",
+"Quería que supieras que alguien te piensa bonito.",
+"Te amo y me gusta acompañarte incluso en los días aburridos."
+]
+};
+
+let currentEmotion=null;
+let used=[];
+
+function showPage(id){
+  document.querySelectorAll('.card').forEach(c=>c.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function openEmotion(e){
+  currentEmotion=e;
+  used=[];
+  showPage('note');
+  nextNote();
+}
+
+function nextNote(){
+  const arr=data[currentEmotion];
+  if(used.length===arr.length){used=[];}
+  let i;
+  do{i=Math.floor(Math.random()*arr.length);}while(used.includes(i));
+  used.push(i);
+  document.getElementById('emotionTitle').innerText=currentEmotion.toUpperCase();
+  document.getElementById('noteText').innerText=arr[i];
+}
+</script></body>
+</html>
